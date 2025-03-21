@@ -1,0 +1,115 @@
+‎APACHE TOMCAT:
+
+cd  conf
+ nano tomcat-users.xml
+
+ <role rolename="manager-gui"/>
+ <role rolename="manager-script"/>
+ <role rolename="admin-gui"/>
+ <user username="venkat" password="venkat" roles="manager-gui"/>
+ <user username="admin" password="admin" roles="manager-gui,admin-gui,manager-script"/>
+
+
+go to bin
+
+sh startup.sh 
+
+===============================================================================================================
+
+FOR PYTHON APP:
+
+Create a directory.
+mkdir docker-python-app  
+------------------------
+Enter into Directory
+cd docker-python-app
+------------------------------
+Create Dockerfile
+It is require to create Docker image. It contains instructions that are read by Docker.
+
+
+nano Dockerfile
+
+FROM python  
+COPY . /src  
+CMD ["python", "/src/index.py"]  
+-----------------------------------
+Create a Python file
+Create a python file to execute in the Docker container.
+
+nano index.py
+
+print("Hello from python file");  
+---------------------------------------
+Create Docker Image
+To create Docker image of this python application, we need to use the following Docker command.
+
+docker build -t python-app .  
+----------------------------------
+Check the available Docker images
+We can see all the available Docker images by the following command.
+
+docker images  
+---------------------------------------
+Run Docker
+After creating docker image, now we can run it by using the following command.
+
+ docker run python-app
+
+=============================================================================================================
+
+PHP:
+
+mkdir  docker-php-app
+
+cd  docker-php-app
+
+//Create a DockerFile
+
+ nano Dockefile
+
+FROM php:7.0-apache  
+COPY . /var/www/php 
+
+//Create a Php File
+
+nano index.php
+
+<?php  
+    echo ?Hello, Php?;  
+?>  
+
+ 
+
+
+docker build -t php-app . 
+
+docker run php-app
+
+===========================================================================================================
+
+DOCKER INSTALL TOMCAT:
+
+git clone https://github.com/softwareyoga/docker-tomcat-tutorial.git
+
+ls
+
+Dockerfile README.md sample.war
+---------------------------------------
+go to folder
+
+check dockerfile
+
+----Build docker
+
+docker build -t mywebapp .
+--------show image id----
+docker image ls
+-------run-----------------------------
+docker run -p 80:8080 mywebapp
+
+------------
+open on browser
+http://3.20.238.178:80
+
+=============================================================================================================
